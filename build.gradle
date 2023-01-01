@@ -18,16 +18,15 @@ java{
     withJavadocJar()
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifactId = "com.github.Leonarddoo"
-            from components.java
+afterEvaluate {
+    publishing {
+        publications {
+// Creates a Maven publication called "release".
+            release(MavenPublication) {
+                groupId = 'com.github.Leonarddoo' as Publication
+                artifactId = 'dba' as Publication
+                version = '1.0.0' as Publication
+            }
         }
     }
-}
-
-wrapper {
-    gradleVersion = "7.3.3"
-    distributionType = Wrapper.DistributionType.ALL
 }
