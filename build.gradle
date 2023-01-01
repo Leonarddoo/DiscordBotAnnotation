@@ -23,9 +23,9 @@ afterEvaluate {
         publications {
 // Creates a Maven publication called "release".
             release(MavenPublication) {
-                groupId = 'com.github.Leonarddoo' as Publication
-                artifactId = 'dba' as Publication
-                version = '1.0.0' as Publication
+                groupId = 'com.github.Leonarddoo'
+                artifactId = 'dba'
+                version = '1.0.0'
             }
         }
     }
