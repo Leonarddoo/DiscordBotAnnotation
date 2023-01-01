@@ -8,7 +8,7 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.Leonarddoo</groupId>
-  <artifactId>DiscordBotAnnotation</artifactId>
+  <artifactId>com.github.Leonarddoo</artifactId>
   <version>1.0.0</version>
   <dependencies>
     <dependency>

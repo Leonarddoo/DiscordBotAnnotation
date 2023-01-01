@@ -2,7 +2,7 @@
   "formatVersion": "1.1",
   "component": {
     "group": "com.github.Leonarddoo",
-    "module": "DiscordBotAnnotation",
+    "module": "com.github.Leonarddoo",
     "version": "1.0.0",
     "attributes": {
       "org.gradle.status": "release"
@@ -25,8 +25,8 @@
       },
       "files": [
         {
-          "name": "DiscordBotAnnotation-1.0.0.jar",
-          "url": "DiscordBotAnnotation-1.0.0.jar",
+          "name": "com.github.Leonarddoo-1.0.0.jar",
+          "url": "com.github.Leonarddoo-1.0.0.jar",
           "size": 7645,
           "sha512": "063255da20a90df6cf442d768abda978c83733ded6da4aa9a907ead19df0da11958b700586b0c78afe25e7c8f593a6c9b00cb55a8be5b468d80324dd5df0b05b",
           "sha256": "aea37551dd56f9e48545570cd2abc36705bceefb0df45da71d67c2bbeaa98b8c",
@@ -55,8 +55,8 @@
       ],
       "files": [
         {
-          "name": "DiscordBotAnnotation-1.0.0.jar",
-          "url": "DiscordBotAnnotation-1.0.0.jar",
+          "name": "com.github.Leonarddoo-1.0.0.jar",
+          "url": "com.github.Leonarddoo-1.0.0.jar",
           "size": 7645,
           "sha512": "063255da20a90df6cf442d768abda978c83733ded6da4aa9a907ead19df0da11958b700586b0c78afe25e7c8f593a6c9b00cb55a8be5b468d80324dd5df0b05b",
           "sha256": "aea37551dd56f9e48545570cd2abc36705bceefb0df45da71d67c2bbeaa98b8c",
@@ -75,8 +75,8 @@
       },
       "files": [
         {
-          "name": "DiscordBotAnnotation-1.0.0-sources.jar",
-          "url": "DiscordBotAnnotation-1.0.0-sources.jar",
+          "name": "com.github.Leonarddoo-1.0.0-sources.jar",
+          "url": "com.github.Leonarddoo-1.0.0-sources.jar",
           "size": 5421,
           "sha512": "adb13ef035f0fc3ac988176d9dd7b562a5d758629c0df38da532372db5e7fa03831f0f684e2549eac96845257a53f48a18af2b97c496bf42897a45ca8edde381",
           "sha256": "cfbde577ae385aa9c1ef125efa524a068954f377ef22fd7862acf41fd3da7689",
@@ -95,8 +95,8 @@
       },
       "files": [
         {
-          "name": "DiscordBotAnnotation-1.0.0-javadoc.jar",
-          "url": "DiscordBotAnnotation-1.0.0-javadoc.jar",
+          "name": "com.github.Leonarddoo-1.0.0-javadoc.jar",
+          "url": "com.github.Leonarddoo-1.0.0-javadoc.jar",
           "size": 143430,
           "sha512": "e885873837674c24324b13d7423103d45f4ed701921cc738f028b12d3eebee98236c6b58ddcf439588037e0beb9a3e9d3fefe1ae1ff4b6c8b835444253eec984",
           "sha256": "d5b5365d84937703061d695e33b9528e0bd04bbd12483e6d6e284b5ef96c4ddb",
