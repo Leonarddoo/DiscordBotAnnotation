@@ -4,13 +4,11 @@ DBA is a JAVA library that allows you to easily create your commands using [JDA 
 
 ## Installation
 
-For the moment the library is not yet available on maven/gradle. You must therefore [download the .jar]() and import it manually.
-
 ### Gradle
 
 ```gradle
 dependencies {
-    implementation files('path\\to\\the.jar')
+    implementation ('com.github.Leonarddoo:DiscordBotAnnotation:VERSION')
 }
 ```
 
@@ -18,11 +16,9 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>com.sample</groupId>  
-    <artifactId>samplifact</artifactId>  
-    <version>1.0</version> 
-    <scope>system</scope>
-    <systemPath>path\\to\\the.jar</systemPath>
+    <groupId>com.github.Leonarddoo</groupId>
+    <artifactId>DiscordBotAnnotation</artifactId>
+    <version>VERSION</version>
 </dependency>
 ```
 
