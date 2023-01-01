@@ -13,19 +13,17 @@ dependencies {
     implementation("net.dv8tion:JDA:5.0.0-alpha.17")
 }
 
-java{
-    withSourcesJar()
-    withJavadocJar()
-}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.Leonarddoo'
+            artifactId = 'dba'
+            version = "1.0.0"
+            from components.java
 
-afterEvaluate {
-    publishing {
-        publications {
-// Creates a Maven publication called "release".
-            release(MavenPublication) {
-                groupId = 'com.github.Leonarddoo'
-                artifactId = 'dba'
-                version = '1.0.0'
+            pom {
+                name = 'Discord Bot Annotation'
+                description = 'A library to make discord bots easier'
             }
         }
     }

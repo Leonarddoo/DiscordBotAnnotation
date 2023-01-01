@@ -8,8 +8,10 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.Leonarddoo</groupId>
-  <artifactId>com.github.Leonarddoo</artifactId>
+  <artifactId>dba</artifactId>
   <version>1.0.0</version>
+  <name>Discord Bot Annotation</name>
+  <description>A library to make discord bots easier</description>
   <dependencies>
     <dependency>
       <groupId>net.dv8tion</groupId>
