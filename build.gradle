@@ -21,6 +21,7 @@ java{
 publishing {
     publications {
         maven(MavenPublication) {
+            artifactId "com.github.Leonarddoo"
             from components.java
         }
     }
