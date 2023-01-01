@@ -1,9 +1,8 @@
-plugins {
-    id 'java'
-    id 'maven-publish'
-}
 
-group 'fr.leonarddoo.dba'
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group 'com.github.Leonarddoo'
 version '1.0.0'
 
 repositories {
@@ -14,6 +13,20 @@ dependencies {
     implementation("net.dv8tion:JDA:5.0.0-alpha.17")
 }
 
-test {
-    useJUnitPlatform()
+java{
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+wrapper {
+    gradleVersion = "7.3.3"
+    distributionType = Wrapper.DistributionType.ALL
 }
