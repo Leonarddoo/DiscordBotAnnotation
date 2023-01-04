@@ -1,4 +1,4 @@
-package fr.leonarddoo.dba;
+package fr.leonarddoo.dba.loader;
 
 import fr.leonarddoo.dba.annotation.Command;
 import fr.leonarddoo.dba.annotation.Option;
@@ -13,27 +13,31 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * @author Arobase
- * @version 1.0
+ * @author Leonarddoo
  * Load all commands with annotation
  */
 @SuppressWarnings("unused")
 public class CommandLoader {
 
+    /**
+     * JDA instance
+     */
     private final JDA jda;
 
-    protected static CommandLoader instance;
-
-    private final Dispatcher dispatcher;
+    /**
+     * Map of all commands with their class
+     */
+    protected static final Map<String, Class<?>> COMMANDS_MAP = new HashMap<>();
 
     public CommandLoader(JDA jda) {
         this.jda = jda;
-        dispatcher = new Dispatcher();
+        Dispatcher dispatcher = new Dispatcher();
         jda.addEventListener(dispatcher);
-        instance = this;
     }
 
     /**
@@ -75,19 +79,23 @@ public class CommandLoader {
 
         for (Class<?> clazz : classes) {
 
-            String cmdName = null;
-            String cmdDesc = null;
+            if(clazz.isAnnotationPresent(Command.class)) {
 
-            for (Command a : clazz.getAnnotationsByType(Command.class)) {
-                cmdName = a.name();
-                cmdDesc = a.description();
-            }
-            if (cmdName == null || cmdDesc == null) {
-                throw new InvalidCommandException("Command name or description cannot be null.");
-            } else {
+                String cmdName = null;
+                String cmdDesc = null;
+
+                for (Command cmd : clazz.getAnnotationsByType(Command.class)) {
+                    cmdName = cmd.name();
+                    cmdDesc = cmd.description();
+                }
+                if (cmdName == null || cmdDesc == null) {
+                    throw new InvalidCommandException("Command name or description cannot be null.");
+                }
                 commands.add(new CommandDataImpl(cmdName, cmdDesc).addOptions(createOptions(clazz)));
+                COMMANDS_MAP.put(cmdName, clazz);
+            }else{
+                throw new InvalidCommandException("Class " + clazz.getName() + " do not use @Command annotation.");
             }
-            dispatcher.commands.put(cmdName, clazz);
         }
         return commands;
     }
