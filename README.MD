@@ -7,6 +7,10 @@ DBA is a JAVA library that allows you to easily create your commands using [JDA 
 ### Gradle
 
 ```gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     implementation ('com.github.Leonarddoo:DiscordBotAnnotation:VERSION')
 }
@@ -15,6 +19,13 @@ dependencies {
 ### Maven
 
 ```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
 <dependency>
     <groupId>com.github.Leonarddoo</groupId>
     <artifactId>DiscordBotAnnotation</artifactId>
