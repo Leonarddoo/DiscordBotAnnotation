@@ -50,7 +50,13 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         String id = event.getButton().getId();
-        Class<?> buttonClass = ButtonLoader.BUTTONS_MAP.get(id);
+        Class<?> buttonClass = null;
+        for(String key : ButtonLoader.BUTTONS_MAP.keySet()){
+            assert id != null;
+            if(key.startsWith(id)){
+                buttonClass = ButtonLoader.BUTTONS_MAP.get(key);
+            }
+        }
         if(buttonClass == null) return;
         if(Arrays.asList(buttonClass.getInterfaces()).contains(CustomButton.class)) {
             try {
@@ -71,7 +77,13 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onSelectMenuInteraction(@NotNull SelectMenuInteractionEvent event) {
         String id = event.getSelectMenu().getId();
-        Class<?> selectMenuClass = SelectMenuLoader.SELECT_MENU_MAP.get(id);
+        Class<?> selectMenuClass = null;
+        for(String key : SelectMenuLoader.SELECT_MENU_MAP.keySet()){
+            assert id != null;
+            if(key.startsWith(id)){
+                selectMenuClass = SelectMenuLoader.SELECT_MENU_MAP.get(key);
+            }
+        }
         if(selectMenuClass == null) return;
         if(Arrays.asList(selectMenuClass.getInterfaces()).contains(SelectMenu.class)) {
             try {
@@ -92,7 +104,12 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onModalInteraction(@NotNull ModalInteractionEvent event) {
         String id = event.getModalId();
-        Class<?> modalClass = ModalLoader.MODAL_MAP.get(id);
+        Class<?> modalClass = null;
+        for(String key : ModalLoader.MODAL_MAP.keySet()){
+            if(key.startsWith(id)){
+                modalClass = ModalLoader.MODAL_MAP.get(key);
+            }
+        }
         if(modalClass == null) return;
         if(Arrays.asList(modalClass.getInterfaces()).contains(Modal.class)) {
             try {
