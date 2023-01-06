@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.Leonarddoo</groupId>
   <artifactId>dba</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.1</version>
   <name>Discord Bot Annotation</name>
   <description>A library to make discord bots easier</description>
   <dependencies>
