@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import java.lang.annotation.*;
 
 /**
- * Annotation for Slash Command Options
+ * @author Leonarddoo
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

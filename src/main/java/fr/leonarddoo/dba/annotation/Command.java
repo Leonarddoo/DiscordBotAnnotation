@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for Slash Command
+ * @author Leonarddoo
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

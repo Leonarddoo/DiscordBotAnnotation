@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Multiple Options Annotation
+ * @author Leonarddoo
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
