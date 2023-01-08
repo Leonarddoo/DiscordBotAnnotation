@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 /**
  * @author Leonarddoo
  */
-public interface CustomButton {
+public interface CustomButton extends EventImplementation{
 
     /**
      * Method called when the button is clicked

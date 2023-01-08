@@ -4,7 +4,7 @@ package fr.leonarddoo.dba.element;
  * Interface for event implementations
  * @author Leonarddoo
  */
-public interface EventImplementation {
+public interface EventImplementation{
 
 
 }
