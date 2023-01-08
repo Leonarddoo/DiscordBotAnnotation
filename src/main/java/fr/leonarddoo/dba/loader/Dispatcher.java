@@ -1,6 +1,6 @@
 package fr.leonarddoo.dba.loader;
 
-import fr.leonarddoo.dba.element.EventImplementation;
+import fr.leonarddoo.dba.element.*;
 import fr.leonarddoo.dba.exception.InvalidClassException;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -21,9 +21,9 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         String commandName = event.getName();
-        EventImplementation eventImplementation = Loader.COMMANDS_MAP.get(commandName);
-        if(eventImplementation != null){
-            eventImplementation.execute(event);
+        CustomCommand customCommand= Loader.COMMANDS_MAP.get(commandName);
+        if(customCommand != null){
+            customCommand.execute(event);
         }else{
             throw new InvalidClassException("You class must implement CustomCommand interface.");
         }
@@ -35,9 +35,9 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         String id = event.getButton().getId();
-        EventImplementation eventImplementation = Loader.BUTTONS_MAP.get(id);
-        if(eventImplementation != null) {
-            eventImplementation.execute(event);
+        CustomButton customButton = Loader.BUTTONS_MAP.get(id);
+        if(customButton != null) {
+            customButton.execute(event);
         }else{
             throw new InvalidClassException("You class must implement CustomButton interface.");
         }
@@ -49,9 +49,9 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onSelectMenuInteraction(@NotNull SelectMenuInteractionEvent event) {
         String id = event.getSelectMenu().getId();
-        EventImplementation eventImplementation = Loader.SELECT_MENU_MAP.get(id);
-        if(eventImplementation != null) {
-            eventImplementation.execute(event);
+        CustomSelectMenu customSelectMenu = Loader.SELECT_MENU_MAP.get(id);
+        if(customSelectMenu != null) {
+            customSelectMenu.execute(event);
         }else{
             throw new InvalidClassException("You class must implement CustomSelectMenu interface.");
         }
@@ -63,9 +63,9 @@ public class Dispatcher extends ListenerAdapter {
     @Override
     public void onModalInteraction(@NotNull ModalInteractionEvent event) {
         String id = event.getModalId();
-        EventImplementation eventImplementation = Loader.MODAL_MAP.get(id);
-        if(eventImplementation != null) {
-            eventImplementation.execute(event);
+        CustomModal customModal = Loader.MODAL_MAP.get(id);
+        if(customModal != null) {
+            customModal.execute(event);
         }else{
             throw new InvalidClassException("You class must implement CustomModal interface.");
         }

@@ -1,7 +1,7 @@
 package fr.leonarddoo.dba.loader;
 
 import fr.leonarddoo.dba.annotation.*;
-import fr.leonarddoo.dba.element.EventImplementation;
+import fr.leonarddoo.dba.element.*;
 import fr.leonarddoo.dba.exception.InvalidClassException;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -24,19 +24,19 @@ public class Loader {
     /**
      * Map of all commands with their class
      */
-    protected static final Map<String, EventImplementation> COMMANDS_MAP = new HashMap<>();
+    protected static final Map<String, CustomCommand> COMMANDS_MAP = new HashMap<>();
     /**
      * Map of all buttons with their class
      */
-    protected static final Map<String, EventImplementation> BUTTONS_MAP = new HashMap<>();
+    protected static final Map<String, CustomButton> BUTTONS_MAP = new HashMap<>();
     /**
      * Map of all select menus with their class
      */
-    protected static final Map<String, EventImplementation> SELECT_MENU_MAP = new HashMap<>();
+    protected static final Map<String, CustomSelectMenu> SELECT_MENU_MAP = new HashMap<>();
     /**
      * Map of all modals with their class
      */
-    protected static final Map<String, EventImplementation> MODAL_MAP = new HashMap<>();
+    protected static final Map<String, CustomModal> MODAL_MAP = new HashMap<>();
 
 
     /**
@@ -76,22 +76,22 @@ public class Loader {
                 String cmdDesc = clazz.getAnnotation(Command.class).description();
 
                 commands.add(new CommandDataImpl(cmdName, cmdDesc).addOptions(createOptions(clazz)));
-                COMMANDS_MAP.put(cmdName, eventImplementation);
+                COMMANDS_MAP.put(cmdName, (CustomCommand) eventImplementation);
             }
 
             else if(clazz.isAnnotationPresent(Button.class)){
                 String id = clazz.getAnnotation(Button.class).id();
-                BUTTONS_MAP.put(id, eventImplementation);
+                BUTTONS_MAP.put(id, (CustomButton) eventImplementation);
             }
 
             else if(clazz.isAnnotationPresent(SelectMenu.class)){
                 String id = clazz.getAnnotation(SelectMenu.class).id();
-                SELECT_MENU_MAP.put(id, eventImplementation);
+                SELECT_MENU_MAP.put(id, (CustomSelectMenu) eventImplementation);
             }
 
             else if(clazz.isAnnotationPresent(Modal.class)){
                 String id = clazz.getAnnotation(Modal.class).id();
-                MODAL_MAP.put(id, eventImplementation);
+                MODAL_MAP.put(id, (CustomModal) eventImplementation);
             }
 
             else {
