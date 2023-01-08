@@ -3,7 +3,7 @@
   "component": {
     "group": "com.github.Leonarddoo",
     "module": "dba",
-    "version": "1.0.0",
+    "version": "2.0.1",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -25,13 +25,13 @@
       },
       "files": [
         {
-          "name": "dba-1.0.0.jar",
-          "url": "dba-1.0.0.jar",
-          "size": 7645,
-          "sha512": "063255da20a90df6cf442d768abda978c83733ded6da4aa9a907ead19df0da11958b700586b0c78afe25e7c8f593a6c9b00cb55a8be5b468d80324dd5df0b05b",
-          "sha256": "aea37551dd56f9e48545570cd2abc36705bceefb0df45da71d67c2bbeaa98b8c",
-          "sha1": "85229607b05963b52a8330c89c65e49e294729fb",
-          "md5": "5955c696d4afb461548470bd9f45f13b"
+          "name": "dba-2.0.1.jar",
+          "url": "dba-2.0.1.jar",
+          "size": 15678,
+          "sha512": "21c447c8dbac71417517e196b2f4357ab027a9af2e011226265cc00fb0d67c1fce171011bee11876cbdf2050a1cb29605c817ae59676cfb913f2f2ae0744c151",
+          "sha256": "256561a94264965f39fb1a6649e9f15ee14d5d5ba3735b201c238f5a4ee7fb18",
+          "sha1": "1a7a78b2761fb3ff34066c484a97c071a4381c04",
+          "md5": "9af97739f2616c7b0bd3ee0b99eddbcc"
         }
       ]
     },
@@ -55,13 +55,13 @@
       ],
       "files": [
         {
-          "name": "dba-1.0.0.jar",
-          "url": "dba-1.0.0.jar",
-          "size": 7645,
-          "sha512": "063255da20a90df6cf442d768abda978c83733ded6da4aa9a907ead19df0da11958b700586b0c78afe25e7c8f593a6c9b00cb55a8be5b468d80324dd5df0b05b",
-          "sha256": "aea37551dd56f9e48545570cd2abc36705bceefb0df45da71d67c2bbeaa98b8c",
-          "sha1": "85229607b05963b52a8330c89c65e49e294729fb",
-          "md5": "5955c696d4afb461548470bd9f45f13b"
+          "name": "dba-2.0.1.jar",
+          "url": "dba-2.0.1.jar",
+          "size": 15678,
+          "sha512": "21c447c8dbac71417517e196b2f4357ab027a9af2e011226265cc00fb0d67c1fce171011bee11876cbdf2050a1cb29605c817ae59676cfb913f2f2ae0744c151",
+          "sha256": "256561a94264965f39fb1a6649e9f15ee14d5d5ba3735b201c238f5a4ee7fb18",
+          "sha1": "1a7a78b2761fb3ff34066c484a97c071a4381c04",
+          "md5": "9af97739f2616c7b0bd3ee0b99eddbcc"
         }
       ]
     }
