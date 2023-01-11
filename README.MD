@@ -1,6 +1,11 @@
 # DBA (Discord Bot Annotation)
 
-DBA is a JAVA library that allows you to easily create your commands using [JDA (Java Discord API)](https://github.com/DV8FromTheWorld/JDA).
+## Introduction
+
+This library work with [JDA (Java Discord API)](https://github.com/DV8FromTheWorld/JDA) !
+
+The DBA library makes it very easy to create and use components linked to events (command / button / selectMenu / modal) with the annotation system in java. In addition, it allows a cleaner code structure, in fact a class is equivalent to a component and what it must do when it is called.
+No need to call the same events several times for different actions in your code, or to create a huge switch().
 
 ## Installation
 
@@ -34,41 +39,17 @@ dependencies {
 ```
 
 
-## Getting started
 
-### Defining a class as a command
+## List of components
 
-To define a command, just use the `@Command` annotation above the desired Java class
-
-```java
-@Command(name = "help", description = "Displays the bot help.")
-public class Help {
-  //TODO
-}
-```
-
-Two parameters are available in the annotation
+### @Command
 
 | Parameter     |    Type    | Utility                                 | Required |
 |---------------|:----------:|:----------------------------------------|:--------:|
 | name          |   String   | The name we want to give to the command |   True   |
 | description   |   String   | The description of the command          |   True   |
 
-### Add options to the command
-
-It is possible to add up to 25 options to the command (limited by JDA), thanks to the `@Option` annotation
-
-```java
-@Command(name = "ban", description = "Ban a member from the server.")
-@Option(type = OptionType.USER, name = "member", description = "The member to ban.", required = true)
-@Option(type = OptionType.STRING, name = "reason", description = "The reason for the ban.")
-@Option(type = OptionType.STRING, name = "duration", description = "The duration for the ban.")
-public class Ban {
-  //TODO
-}
-```
-
-The annotation receives up to 4 parameters
+### @Option
 
 | Parameter     |    Type    | Utility                                     | Required |
 |---------------|:----------:|:--------------------------------------------|:--------:|
@@ -77,63 +58,87 @@ The annotation receives up to 4 parameters
 | description   |   String   | The description of the option               |   True   |
 | required      |  boolean   | If the option is mandatory (not by default) |  False   |
 
+### @Button
 
-### Declare commands
+| Parameter     |    Type    | Utility                  | Required |
+|---------------|:----------:|:-------------------------|:--------:|
+| id            |   String   | The ID of the button     |   True   |
 
-Create a new instance of ClassLoader with a JDA instance as parameter.
-You can then load the different commands on a guild or on Discord in general.
+### @SelectMenu
 
-The example below represents the case where we want to load our commands on all the servers that our bot has joined.
+| Parameter     |    Type    | Utility                  | Required |
+|---------------|:----------:|:-------------------------|:--------:|
+| id            |   String   | The ID of the selectMenu |   True   |
+
+### @Modal
+
+| Parameter     |    Type    | Utility                  | Required |
+|---------------|:----------:|:-------------------------|:--------:|
+| id            |   String   | The ID of the modal      |   True   |
+
+
+## Getting started
+
+### Declaration of targeted classes
+
+First, create a new instance of `Loader`. This instance has a `load()` method which takes a guild or a JDA instance as a parameter as well as a list of classes.
+The choice of the first concerns only the accessibility of the commands. The JDA instance allows you to load them everywhere (even in DM with the bot), the guild instance to load them only on the guild.
+
+In the following example we will create :  
+- A **/welcome** command which will have an optional @user. This command will respond "Welcome {user.name} to {server.name}".
+- A **button** with the id "ping" which responds "pong" when clicked.
 
 ```java
-public class SetupCommands extends ListenerAdapter {
+public class Setup extends ListenerAdapter {
 
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
-
-        new CommandLoader(event.getJDA()).loadGuildCommands(event.getGuild(),
-                Ban.class,
-                Help.class
-                );        
+        new Loader().load(event.getGuild(),
+                new WelcomeCommand(),
+                new PingButton()
+        );
     }
 }
 ```
 
-## Auto commands dispatch
-
-It is possible to declare a method that runs automatically when the command linked to your class is called.
-
-For this your class must `implement Custom Command` and must define a method `execute(SlashCommandInteractionEvent event)`
+### Create Command class
 
 ```java
-@Command(name = "ban", description = "Ban a member from the server.")
-@Option(type = OptionType.USER, name = "member", description = "The member to ban.", required = true)
-@Option(type = OptionType.STRING, name = "reason", description = "The reason for the ban.")
-@Option(type = OptionType.STRING, name = "duration", description = "The duration for the ban.")
-public class Ban implements CustomCommand {
-
-    public Ban(){
-        //Required if a non-empty constructor is declared
-    }
-    
-    public Ban(String s){
-        //Example
-    }
+@Command(name = "welcome", description = "Send a welcome message to a member.")
+@Option(type = OptionType.USER, name = "user", description = "The new member", required = true)
+public class WelcomeCommand implements CustomCommand {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        event.reply("Example...").queue();
+        User user = event.getOption("user").getAsUser();
+        event.reply("Welcome " + user.getName() + " to " + event.getGuild().getName()).queue();
     }
 }
 ```
 
-**WARNING, your class must have an empty constructor. By default, if no constructor is defined, JAVA create one "invisible" by default. However if you define a constructor with parameters you must instantiate an empty one/**
+Remember to have indicated your class in the Loader, to have put the annotation to your class and that it implements the right class, `CustomCommand` for a Command.
 
+### Create Button class
 
+```java
+@Button(id = "ping")
+public class PingButton implements CustomButton {
+    @Override
+    public void execute(ButtonInteractionEvent event) {
+        event.reply("Pong").queue();
+    }
+}
+```
+
+Again, the class must be in the loader, have the annotion (@Button for the example) and implement `CustomButton`.
+
+## Finally 
+
+You can do the same for `SelectMenu` and `Modal`. I remain open to any suggestions to improve the current version.
+
+If you have any questions, I remain available.
 
 ## Contact us
 
-If you have any questions, do not hesitate to contact us.
-
-[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/u7K4WcxMWS)
+[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/a8QS7Jhs6G)
 
