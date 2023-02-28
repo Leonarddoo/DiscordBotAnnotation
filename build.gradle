@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group 'com.github.Leonarddoo'
-version '2.2.1'
+version '3.0.0'
 
 repositories {
     mavenCentral()
@@ -21,7 +21,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.github.Leonarddoo'
             artifactId = 'dba'
-            version = "2.2.1"
+            version = "3.0.0"
             from components.java
 
             pom {
