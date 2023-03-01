@@ -3,14 +3,17 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group 'com.github.Leonarddoo'
-version '2.2.1'
+version '3.0.0'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    //JDA
     implementation("net.dv8tion:JDA:5.0.0-alpha.17")
+    //Gson
+    implementation("com.google.code.gson:gson:2.8.8")
 }
 
 publishing {
@@ -18,7 +21,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'com.github.Leonarddoo'
             artifactId = 'dba'
-            version = "2.2.1"
+            version = "3.0.0"
             from components.java
 
             pom {
