@@ -43,15 +43,6 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            url "https://maven.pkg.jetbrains.space/arobase/p/main/discordbotannotation"
-            credentials {
-                username = project.spaceUsername
-                password = project.spacePassword
-            }
-        }
-    }
 }
 
 shadowJar {
