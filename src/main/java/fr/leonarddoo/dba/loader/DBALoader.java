@@ -67,13 +67,13 @@ public class DBALoader {
      * @param commandsClass Commands to add
      */
     @SuppressWarnings("unused")
-    public DBALoader addDBACommandsToJDA(DBACommand... commandsClass) {
+    public DBALoader addDBACommandsToJDA(Object... commandsClass) {
         List<CommandData> commands = new ArrayList<>();
-        for (DBACommand event : commandsClass) {
+        for (Object event : commandsClass) {
             Class<?> clazz = event.getClass();
             if (clazz.isAnnotationPresent(Command.class)) {
                 commands.add(createCommand(clazz));
-                this.COMMANDS_MAP.put(clazz.getAnnotation(Command.class).name(), event);
+                this.COMMANDS_MAP.put(clazz.getAnnotation(Command.class).name(), (DBACommand) event);
             } else {
                 throw new RuntimeException(new InvalidClassException("The class " + clazz.getName() + " is not a valid DBACommand class"));
             }
@@ -88,13 +88,13 @@ public class DBALoader {
      * @param commandsClass Commands to add
      */
     @SuppressWarnings("unused")
-    public DBALoader addDBACommandsToGuild(Guild guild, DBACommand... commandsClass) {
+    public DBALoader addDBACommandsToGuild(Guild guild, Object... commandsClass) {
         List<CommandData> commands = new ArrayList<>();
-        for (DBACommand event : commandsClass) {
+        for (Object event : commandsClass) {
             Class<?> clazz = event.getClass();
             if (clazz.isAnnotationPresent(Command.class)) {
                 commands.add(createCommand(clazz));
-                this.COMMANDS_MAP.put(clazz.getAnnotation(Command.class).name(), event);
+                this.COMMANDS_MAP.put(clazz.getAnnotation(Command.class).name(), (DBACommand) event);
             } else {
                 throw new RuntimeException(new InvalidClassException("The class " + clazz.getName() + " is not a valid DBACommand class"));
             }
@@ -144,8 +144,8 @@ public class DBALoader {
      * @return Instance of DBALoader
      */
     @SuppressWarnings("unused")
-    public DBALoader initDBAEvent(DBAEvent... dbaClass) {
-        for (DBAEvent event : dbaClass) {
+    public DBALoader initDBAEvent(Object... dbaClass) {
+        for (Object event : dbaClass) {
             Class<?> clazz = event.getClass();
             if (clazz.isAnnotationPresent(Button.class)) {
                 String id = clazz.getAnnotation(Button.class).id();
