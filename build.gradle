@@ -1,6 +1,5 @@
 plugins{
     id 'java'
-    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -12,32 +11,12 @@ repositories {
 }
 
 dependencies {
-    //JDA
-    implementation 'net.dv8tion:JDA:5.0.0-alpha.22'
-    //Gson
-    implementation 'com.google.code.gson:gson:2.10.1'
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_16 // Version de Java source
-    targetCompatibility = JavaVersion.VERSION_16 // Version de Java cible
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.github.Leonarddoo'
-            artifactId = 'dba'
-            version = "1.0.0"
-            from components.java
-
-            pom {
-                name = 'Discord Bot Annotation'
-                description = 'A library to make discord bots easier'
-            }
-        }
+    // JDA without SLF4J
+    implementation ('net.dv8tion:JDA:5.0.0-beta.18') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
     }
 }
+
 
 shadowJar {
     archiveFileName = "DiscordBotAnnotation-nodb.jar"

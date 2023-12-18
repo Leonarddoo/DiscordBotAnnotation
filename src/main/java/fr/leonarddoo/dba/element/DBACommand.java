@@ -3,7 +3,6 @@ package fr.leonarddoo.dba.element;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-@SuppressWarnings("unused")
 public interface DBACommand extends DBAEvent {
 
     /**

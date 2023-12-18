@@ -2,7 +2,6 @@ package fr.leonarddoo.dba.element;
 
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 
-@SuppressWarnings("unused")
 public interface DBAModal extends DBAEvent {
 
     /**
