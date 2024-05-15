@@ -1,7 +1,7 @@
 package fr.leonarddoo.dba.loader;
 
 import fr.leonarddoo.dba.element.*;
-import fr.leonarddoo.dba.exception.UnrechableDBAEventException;
+import fr.leonarddoo.dba.exception.UnreachableDBAEventException;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -47,7 +47,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customCommand != null){
             customCommand.execute(event);
         }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find command with name: " + event.getName()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find command with name: " + event.getName()));
         }
     }
 
@@ -66,7 +66,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customCommand != null){
             customCommand.autoComplete(event);
         }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find command with name: " + event.getName()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find command with name: " + event.getName()));
         }
     }
 
@@ -85,7 +85,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customButton != null){
             customButton.execute(event);
         }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find button with ID: " + event.getButton().getId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find button with ID: " + event.getButton().getId()));
         }
     }
 
@@ -104,7 +104,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customSelectMenu != null){
             customSelectMenu.execute(event);
         }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
         }
     }
 
@@ -123,7 +123,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customSelectMenu != null){
             customSelectMenu.execute(event);
         }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
         }
 
     }
@@ -143,7 +143,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customModal != null) {
             customModal.execute(event);
         }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find modal with ID: " + event.getModalId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find modal with ID: " + event.getModalId()));
         }
     }
 }

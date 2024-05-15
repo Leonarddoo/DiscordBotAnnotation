@@ -20,10 +20,9 @@ import java.util.Map;
  * @author Leonarddoo
  */
 public class DBALoader {
-    /**
-     * Instance of DBALoader
-     */
-    public static DBALoader instance;
+
+    private final static List<DBALoader> loaders = new ArrayList<>();
+
     /**
      * JDA instance
      */
@@ -173,8 +172,16 @@ public class DBALoader {
      */
     @SuppressWarnings("unused")
     public static DBALoader getInstance(JDA jda) {
-        if (instance == null)
-            instance = new DBALoader(jda);
+
+        for(DBALoader loader : loaders){
+            if(loader.jda.equals(jda)){
+                return loader;
+            }
+        }
+
+        DBALoader instance = new DBALoader(jda);
+        loaders.add(instance);
         return instance;
+
     }
 }
