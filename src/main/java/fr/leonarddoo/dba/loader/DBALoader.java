@@ -31,23 +31,23 @@ public class DBALoader {
     /**
      * Map of commands
      */
-    protected final Map<String, DBACommand> COMMANDS_MAP;
+    protected final Map<JDA, Map<String, DBACommand>> COMMANDS_MAP;
     /**
      * Map of buttons
      */
-    protected final Map<String, DBAButton> BUTTONS_MAP;
+    protected final Map<JDA, Map<String, DBAButton>> BUTTONS_MAP;
     /**
      * Map of stringSelectMenu
      */
-    protected final Map<String, DBAStringSelectMenu> STRING_MENU_MAP;
+    protected final Map<JDA, Map<String, DBAStringSelectMenu>> STRING_MENU_MAP;
     /**
      * Map of entitySelectMenu
      */
-    protected final Map<String, DBAEntitySelectMenu> ENTITY_MENU_MAP;
+    protected final Map<JDA, Map<String, DBAEntitySelectMenu>> ENTITY_MENU_MAP;
     /**
      * Map of modals
      */
-    protected final Map<String, DBAModal> MODALS_MAP;
+    protected final Map<JDA, Map<String, DBAModal>> MODALS_MAP;
     /**
      * Create a new DBALoader
      * @param jda JDA instance
@@ -68,17 +68,24 @@ public class DBALoader {
      */
     @SuppressWarnings("unused")
     public DBALoader addDBACommandsToJDA(Object... commandsClass) {
+
+        Map<String, DBACommand> DBACommands = new HashMap<>();
         List<CommandData> commands = new ArrayList<>();
+
         for (Object event : commandsClass) {
+
             Class<?> clazz = event.getClass();
             if (clazz.isAnnotationPresent(Command.class)) {
+                DBACommands.put(clazz.getAnnotation(Command.class).name(), (DBACommand) event);
                 commands.add(createCommand(clazz));
-                this.COMMANDS_MAP.put(clazz.getAnnotation(Command.class).name(), (DBACommand) event);
             } else {
                 throw new RuntimeException(new InvalidClassException("The class " + clazz.getName() + " is not a valid DBACommand class"));
             }
         }
+
+        this.COMMANDS_MAP.put(this.jda, DBACommands);
         this.jda.updateCommands().addCommands(commands).queue();
+
         return this;
     }
 
@@ -89,17 +96,24 @@ public class DBALoader {
      */
     @SuppressWarnings("unused")
     public DBALoader addDBACommandsToGuild(Guild guild, Object... commandsClass) {
+
+        Map<String, DBACommand> DBACommands = new HashMap<>();
         List<CommandData> commands = new ArrayList<>();
+
         for (Object event : commandsClass) {
+
             Class<?> clazz = event.getClass();
             if (clazz.isAnnotationPresent(Command.class)) {
+                DBACommands.put(clazz.getAnnotation(Command.class).name(), (DBACommand) event);
                 commands.add(createCommand(clazz));
-                this.COMMANDS_MAP.put(clazz.getAnnotation(Command.class).name(), (DBACommand) event);
             } else {
                 throw new RuntimeException(new InvalidClassException("The class " + clazz.getName() + " is not a valid DBACommand class"));
             }
         }
+
+        this.COMMANDS_MAP.put(this.jda, DBACommands);
         guild.updateCommands().addCommands(commands).queue();
+
         return this;
     }
 
@@ -145,20 +159,30 @@ public class DBALoader {
      */
     @SuppressWarnings("unused")
     public DBALoader initDBAEvent(Object... dbaClass) {
+
         for (Object event : dbaClass) {
+
             Class<?> clazz = event.getClass();
             if (clazz.isAnnotationPresent(Button.class)) {
+
                 String id = clazz.getAnnotation(Button.class).id();
-                this.BUTTONS_MAP.put(id, (DBAButton)event);
+                this.BUTTONS_MAP.put(this.jda, Map.of(id, (DBAButton)event));
+
             } else if (clazz.isAnnotationPresent(StringSelectMenu.class)) {
+
                 String id = clazz.getAnnotation(StringSelectMenu.class).id();
-                this.STRING_MENU_MAP.put(id, (DBAStringSelectMenu)event);
+                this.STRING_MENU_MAP.put(this.jda, Map.of(id, (DBAStringSelectMenu)event));
+
             } else if (clazz.isAnnotationPresent(EntitySelectMenu.class)) {
+
                 String id = clazz.getAnnotation(EntitySelectMenu.class).id();
-                this.ENTITY_MENU_MAP.put(id, (DBAEntitySelectMenu)event);
+                this.ENTITY_MENU_MAP.put(this.jda, Map.of(id, (DBAEntitySelectMenu)event));
+
             } else if (clazz.isAnnotationPresent(Modal.class)) {
+
                 String id = clazz.getAnnotation(Modal.class).id();
-                this.MODALS_MAP.put(id, (DBAModal)event);
+                this.MODALS_MAP.put(this.jda, Map.of(id, (DBAModal)event));
+
             } else {
                 throw new RuntimeException(new InvalidClassException("The class " + clazz.getName() + " is not a valid DBAEvent class"));
             }

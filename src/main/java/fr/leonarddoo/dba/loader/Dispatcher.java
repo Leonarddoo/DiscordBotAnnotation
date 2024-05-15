@@ -1,7 +1,8 @@
 package fr.leonarddoo.dba.loader;
 
 import fr.leonarddoo.dba.element.*;
-import fr.leonarddoo.dba.exception.UnrechableDBAEventException;
+import fr.leonarddoo.dba.exception.UnreachableDBAEventException;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionE
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -37,17 +39,16 @@ public class Dispatcher extends ListenerAdapter {
      */
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        DBACommand customCommand = null;
-        for (String commandName : this.loader.COMMANDS_MAP.keySet()) {
-            if(event.getName().equalsIgnoreCase(commandName)){
-                customCommand = this.loader.COMMANDS_MAP.get(commandName);
-                break;
+        Map<String, DBACommand> commands = this.loader.COMMANDS_MAP.get(event.getJDA());
+        if (commands != null) {
+            DBACommand customCommand = commands.get(event.getName());
+            if (customCommand != null) {
+                customCommand.execute(event);
+            } else {
+                throw new RuntimeException(new UnreachableDBAEventException("Unable to find command with name: " + event.getName()));
             }
-        }
-        if(customCommand != null){
-            customCommand.execute(event);
-        }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find command with name: " + event.getName()));
+        } else {
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find commands for JDA instance: " + event.getJDA()));
         }
     }
 
@@ -56,17 +57,16 @@ public class Dispatcher extends ListenerAdapter {
      */
     @Override
     public void onCommandAutoCompleteInteraction(CommandAutoCompleteInteractionEvent event) {
-        DBACommand customCommand = null;
-        for (String commandName : this.loader.COMMANDS_MAP.keySet()) {
-            if(event.getName().equalsIgnoreCase(commandName)){
-                customCommand = this.loader.COMMANDS_MAP.get(commandName);
-                break;
+        Map<String, DBACommand> commands = this.loader.COMMANDS_MAP.get(event.getJDA());
+        if (commands != null) {
+            DBACommand customCommand = commands.get(event.getName());
+            if (customCommand != null) {
+                customCommand.autoComplete(event);
+            } else {
+                throw new RuntimeException(new UnreachableDBAEventException("Unable to find command with name: " + event.getName()));
             }
-        }
-        if(customCommand != null){
-            customCommand.autoComplete(event);
-        }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find command with name: " + event.getName()));
+        } else {
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find commands for JDA instance: " + event.getJDA()));
         }
     }
 
@@ -75,17 +75,22 @@ public class Dispatcher extends ListenerAdapter {
      */
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
-        DBAButton customButton = null;
-        for (String buttonId : this.loader.BUTTONS_MAP.keySet()) {
-            if(Objects.requireNonNull(event.getButton().getId()).startsWith(buttonId)){
-                customButton = this.loader.BUTTONS_MAP.get(buttonId);
-                break;
+        Map<String, DBAButton> buttons = this.loader.BUTTONS_MAP.get(event.getJDA());
+        if (buttons != null) {
+            DBAButton customButton = null;
+            for (String buttonId : buttons.keySet()) {
+                if (Objects.requireNonNull(event.getButton().getId()).startsWith(buttonId)) {
+                    customButton = buttons.get(buttonId);
+                    break;
+                }
             }
-        }
-        if(customButton != null){
-            customButton.execute(event);
-        }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find button with ID: " + event.getButton().getId()));
+            if (customButton != null) {
+                customButton.execute(event);
+            } else {
+                throw new RuntimeException(new UnreachableDBAEventException("Unable to find button with ID: " + event.getButton().getId()));
+            }
+        } else {
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find buttons for JDA instance: " + event.getJDA()));
         }
     }
 
@@ -94,17 +99,22 @@ public class Dispatcher extends ListenerAdapter {
      */
     @Override
     public void onStringSelectInteraction(@NotNull StringSelectInteractionEvent event) {
-        DBAStringSelectMenu customSelectMenu = null;
-        for(String selectMenuId : this.loader.STRING_MENU_MAP.keySet()) {
-            if(Objects.requireNonNull(event.getSelectMenu().getId()).startsWith(selectMenuId)) {
-                customSelectMenu = this.loader.STRING_MENU_MAP.get(selectMenuId);
-                break;
+        Map<String, DBAStringSelectMenu> menus = this.loader.STRING_MENU_MAP.get(event.getJDA());
+        if (menus != null) {
+            DBAStringSelectMenu customSelectMenu = null;
+            for (String selectMenuId : menus.keySet()) {
+                if (Objects.requireNonNull(event.getSelectMenu().getId()).startsWith(selectMenuId)) {
+                    customSelectMenu = menus.get(selectMenuId);
+                    break;
+                }
             }
-        }
-        if(customSelectMenu != null){
-            customSelectMenu.execute(event);
-        }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
+            if (customSelectMenu != null) {
+                customSelectMenu.execute(event);
+            } else {
+                throw new RuntimeException(new UnreachableDBAEventException("Unable to find select menu with ID: " + event.getSelectMenu().getId()));
+            }
+        } else {
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find select menus for JDA instance: " + event.getJDA()));
         }
     }
 
@@ -113,19 +123,23 @@ public class Dispatcher extends ListenerAdapter {
      */
     @Override
     public void onEntitySelectInteraction(@NotNull EntitySelectInteractionEvent event) {
-        DBAEntitySelectMenu customSelectMenu = null;
-        for(String selectMenuId : this.loader.ENTITY_MENU_MAP.keySet()) {
-            if(Objects.requireNonNull(event.getSelectMenu().getId()).startsWith(selectMenuId)) {
-                customSelectMenu = this.loader.ENTITY_MENU_MAP.get(selectMenuId);
-                break;
+        Map<String, DBAEntitySelectMenu> menus = this.loader.ENTITY_MENU_MAP.get(event.getJDA());
+        if (menus != null) {
+            DBAEntitySelectMenu customSelectMenu = null;
+            for (String selectMenuId : menus.keySet()) {
+                if (Objects.requireNonNull(event.getSelectMenu().getId()).startsWith(selectMenuId)) {
+                    customSelectMenu = menus.get(selectMenuId);
+                    break;
+                }
             }
+            if (customSelectMenu != null) {
+                customSelectMenu.execute(event);
+            } else {
+                throw new RuntimeException(new UnreachableDBAEventException("Unable to find select menu with ID: " + event.getSelectMenu().getId()));
+            }
+        } else {
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find select menus for JDA instance: " + event.getJDA()));
         }
-        if(customSelectMenu != null){
-            customSelectMenu.execute(event);
-        }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
-        }
-
     }
 
     /**
@@ -133,17 +147,23 @@ public class Dispatcher extends ListenerAdapter {
      */
     @Override
     public void onModalInteraction(@NotNull ModalInteractionEvent event) {
-        DBAModal customModal = null;
-        for (String modalId : this.loader.MODALS_MAP.keySet()) {
-            if(event.getModalId().startsWith(modalId)){
-                customModal = this.loader.MODALS_MAP.get(modalId);
-                break;
+        JDA jda = event.getJDA();
+        Map<String, DBAModal> modals = this.loader.MODALS_MAP.get(jda);
+        if (modals != null) {
+            DBAModal customModal = null;
+            for (String modalId : modals.keySet()) {
+                if (event.getModalId().startsWith(modalId)) {
+                    customModal = modals.get(modalId);
+                    break;
+                }
             }
-        }
-        if(customModal != null) {
-            customModal.execute(event);
-        }else{
-            throw new RuntimeException(new UnrechableDBAEventException("Unable to find modal with ID: " + event.getModalId()));
+            if (customModal != null) {
+                customModal.execute(event);
+            } else {
+                throw new RuntimeException(new UnreachableDBAEventException("Unable to find modal with ID: " + event.getModalId()));
+            }
+        } else {
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find modals for JDA instance: " + jda));
         }
     }
 }
