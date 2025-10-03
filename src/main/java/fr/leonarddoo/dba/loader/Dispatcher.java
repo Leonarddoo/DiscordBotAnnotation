@@ -73,11 +73,12 @@ public class Dispatcher extends ListenerAdapter {
     /**
      * Event for dispatch ButtonInteractionEvent
      */
+
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         DBAButton customButton = null;
         for (String buttonId : this.loader.BUTTONS_MAP.keySet()) {
-            if(Objects.requireNonNull(event.getButton().getId()).startsWith(buttonId)){
+            if(Objects.requireNonNull(event.getButton().getCustomId()).startsWith(buttonId)){
                 customButton = this.loader.BUTTONS_MAP.get(buttonId);
                 break;
             }
@@ -85,7 +86,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customButton != null){
             customButton.execute(event);
         }else{
-            throw new RuntimeException(new UnreachableDBAEventException("Unable to find button with ID: " + event.getButton().getId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find button with ID: " + event.getButton().getCustomId()));
         }
     }
 
@@ -96,7 +97,7 @@ public class Dispatcher extends ListenerAdapter {
     public void onStringSelectInteraction(@NotNull StringSelectInteractionEvent event) {
         DBAStringSelectMenu customSelectMenu = null;
         for(String selectMenuId : this.loader.STRING_MENU_MAP.keySet()) {
-            if(Objects.requireNonNull(event.getSelectMenu().getId()).startsWith(selectMenuId)) {
+            if(Objects.requireNonNull(event.getSelectMenu().getCustomId()).startsWith(selectMenuId)) {
                 customSelectMenu = this.loader.STRING_MENU_MAP.get(selectMenuId);
                 break;
             }
@@ -104,7 +105,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customSelectMenu != null){
             customSelectMenu.execute(event);
         }else{
-            throw new RuntimeException(new UnreachableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getCustomId()));
         }
     }
 
@@ -115,7 +116,7 @@ public class Dispatcher extends ListenerAdapter {
     public void onEntitySelectInteraction(@NotNull EntitySelectInteractionEvent event) {
         DBAEntitySelectMenu customSelectMenu = null;
         for(String selectMenuId : this.loader.ENTITY_MENU_MAP.keySet()) {
-            if(Objects.requireNonNull(event.getSelectMenu().getId()).startsWith(selectMenuId)) {
+            if(Objects.requireNonNull(event.getSelectMenu().getCustomId()).startsWith(selectMenuId)) {
                 customSelectMenu = this.loader.ENTITY_MENU_MAP.get(selectMenuId);
                 break;
             }
@@ -123,7 +124,7 @@ public class Dispatcher extends ListenerAdapter {
         if(customSelectMenu != null){
             customSelectMenu.execute(event);
         }else{
-            throw new RuntimeException(new UnreachableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getId()));
+            throw new RuntimeException(new UnreachableDBAEventException("Unable to find selectmenu with ID: " + event.getSelectMenu().getCustomId()));
         }
 
     }
